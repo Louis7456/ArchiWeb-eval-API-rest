@@ -1,5 +1,5 @@
 <?php
-// route/route.php - Gestionnaire de routes de l'API
+// Gestionnaire de routes
 
 function routeRequest($db, $method, $uriParts, $isLoginRoute, $isRegisterRoute) {
     if ($isLoginRoute) {

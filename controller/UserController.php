@@ -6,7 +6,7 @@ class UserController {
         $this->conn = $db;
     }
 
-    // POST /login
+    // Connecte un utilisateur
     public function login() {
         $data = json_decode(file_get_contents("php://input"));
 
@@ -35,7 +35,7 @@ class UserController {
         }
     }
 
-    // POST /register
+    // Enregistre un utilisateur
     public function register() {
         $data = json_decode(file_get_contents("php://input"));
 
@@ -43,7 +43,7 @@ class UserController {
             $email = htmlspecialchars(strip_tags($data->email));
             $password = htmlspecialchars(strip_tags($data->password));
 
-            // Vérifier si l'email existe déjà
+            // Vérifie si l'email existe déjà
             $checkQuery = "SELECT id FROM users WHERE email = :email LIMIT 1";
             $checkStmt = $this->conn->prepare($checkQuery);
             $checkStmt->bindValue(':email', $email);
@@ -55,10 +55,10 @@ class UserController {
                 return;
             }
 
-            // Générer un api_key unique pour cet utilisateur
+            // Génère un api_key unique
             $apiKey = "token_" . bin2hex(random_bytes(16));
 
-            // Insérer le nouvel utilisateur
+            // Insère le nouvel utilisateur
             $query = "INSERT INTO users SET email = :email, password = :password, api_key = :api_key";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':email', $email);

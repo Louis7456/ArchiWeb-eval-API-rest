@@ -16,19 +16,17 @@ $db = $database->getConnection();
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
 if (empty($uri)) {
-    // Support pour le serveur de développement intégré de PHP (sans .htaccess)
     $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $uri = trim($requestUri, '/');
 }
 $uriParts = explode('/', $uri);
 
-// Détection de la route de connexion et d'inscription
+// Vérifie si la route est pour login ou register
 $isLoginRoute = ($uriParts[0] === 'login' && $method === 'POST');
 $isRegisterRoute = ($uriParts[0] === 'register' && $method === 'POST');
 
-// 1. SÉCURITÉ (Sauf pour le login, register et la méthode pré-vol OPTIONS)
+// authentification
 if (!$isLoginRoute && !$isRegisterRoute && $method !== 'OPTIONS') {
-    // Normalisation des en-têtes HTTP de manière insensible à la casse
     $headers = apache_request_headers();
     $apiKey = null;
     foreach ($headers as $key => $value) {
@@ -53,7 +51,6 @@ if (!$isLoginRoute && !$isRegisterRoute && $method !== 'OPTIONS') {
     Verification::setAuthenticatedUserId((int)$user['id']);
 }
 
-// 2. ROUTEUR
 require_once 'route/route.php';
 routeRequest($db, $method, $uriParts, $isLoginRoute, $isRegisterRoute);
 ?>

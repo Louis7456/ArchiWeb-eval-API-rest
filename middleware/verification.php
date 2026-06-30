@@ -3,12 +3,12 @@
 class Verification {
     private static $authenticatedUserId = null;
 
-    // Définir l'ID de l'utilisateur connecté depuis index.php
+    // Définit l'ID de l'utilisateur connecté
     public static function setAuthenticatedUserId($userId) {
         self::$authenticatedUserId = $userId;
     }
 
-    // Récupérer l'ID de l'utilisateur connecté dans les contrôleurs
+    // Récupère l'ID de l'utilisateur connecté
     public static function getAuthenticatedUserId() {
         return self::$authenticatedUserId;
     }

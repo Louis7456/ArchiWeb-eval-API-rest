@@ -14,7 +14,7 @@ class TicketModel {
         }
     }
 
-    // Récupérer tous les tickets avec des alias pour supprimer les accents dans les clés JSON
+    // Récupére tous les tickets
     public function getAll() {
         $query = "SELECT id, user_id, titre, description, catégorie AS categorie, priorité AS priorite, statut, created_at 
                   FROM " . $this->table_name . " 
@@ -24,7 +24,7 @@ class TicketModel {
         return $stmt->fetchAll();
     }
 
-    // Récupérer un ticket par son ID
+    // Récupère un ticket par son ID
     public function getById($id) {
         $query = "SELECT id, user_id, titre, description, catégorie AS categorie, priorité AS priorite, statut, created_at 
                   FROM " . $this->table_name . " 
@@ -35,7 +35,7 @@ class TicketModel {
         return $stmt->fetch();
     }
 
-    // Insérer un nouveau ticket en mappant les champs vers les colonnes accentuées et en insérant created_at
+    // Insère un nouveau ticket
     public function create($data, $user_id) {
         $query = "INSERT INTO " . $this->table_name . "
             SET titre=:titre, description=:description, catégorie=:categorie, priorité=:priorite, user_id=:user_id, statut='Nouveau', created_at=NOW()";
@@ -50,7 +50,7 @@ class TicketModel {
         return $stmt->execute();
     }
 
-    // Modifier le statut d'un ticket
+    // Modifie le statut d'un ticket
     public function updateStatus($id, $status) {
         $query = "UPDATE " . $this->table_name . " 
                   SET statut = :statut 

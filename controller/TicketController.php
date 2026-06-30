@@ -9,14 +9,14 @@ class TicketController {
         $this->ticketModel = new TicketModel($db);
     }
 
-    // GET /tickets
+    // Récupère tous les tickets
     public function getAllTickets() {
         $tickets = $this->ticketModel->getAll();
         http_response_code(200);
         echo json_encode($tickets);
     }
 
-    // GET /tickets/:id
+    // Récupère un ticket
     public function getTicket($id) {
         $ticket = $this->ticketModel->getById($id);
         if ($ticket) {
@@ -28,7 +28,7 @@ class TicketController {
         }
     }
 
-    // POST /tickets
+    // Crée un ticket
     public function createTicket() {
         $data = json_decode(file_get_contents("php://input"), true);
         Verification::validateTicketData($data);
@@ -43,9 +43,8 @@ class TicketController {
         }
     }
 
-    // POST /tickets/:id/status
+    // Met à jour le statut d'un ticket
     public function updateStatus($id) {
-        // Vérifier d'abord si le ticket existe
         $ticket = $this->ticketModel->getById($id);
         if (!$ticket) {
             http_response_code(404);
@@ -62,7 +61,6 @@ class TicketController {
             return;
         }
 
-        // Validation des valeurs de statut autorisées
         $allowedStatuses = ['Nouveau', 'En cours', 'Résolu'];
         if (!in_array($status, $allowedStatuses)) {
             http_response_code(400);
