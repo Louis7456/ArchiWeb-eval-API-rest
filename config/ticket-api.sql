@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 30 juin 2026 à 09:38
--- Version du serveur : 9.1.0
--- Version de PHP : 8.3.14
+-- Généré le : mar. 30 juin 2026 à 09:41
+-- Version du serveur : 8.3.0
+-- Version de PHP : 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `titre` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   `catégorie` varchar(255) NOT NULL,
   `priorité` varchar(255) NOT NULL,
   `statut` varchar(255) NOT NULL,
@@ -51,8 +52,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `api_key` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `api_key`) VALUES
+(1, 'test@ecole.fr', '123456', 'token_secret_test');
 
 --
 -- Contraintes pour les tables déchargées
