@@ -6,7 +6,7 @@ class Database {
     private $db_name = "ticket-api"; 
     private $username = "root";
     private $password = ""; 
-    private $charset = "utf8mb3";
+    private $charset = "utf8";
     public $conn;
 
     // Méthode pour obtenir la connexion à la base de données

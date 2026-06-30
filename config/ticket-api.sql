@@ -56,20 +56,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `password`, `api_key`) VALUES
-(1, 'test@ecole.fr', '123456', 'token_secret_test');
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `tickets`
---
 ALTER TABLE `tickets`
   ADD CONSTRAINT `fk_tickets_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
