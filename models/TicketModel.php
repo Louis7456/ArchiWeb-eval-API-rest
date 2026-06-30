@@ -8,6 +8,7 @@ class TicketModel {
         $this->conn = $database->getConnection();
     }
 
+    // Requête pour récupérer tous les tickets
     public function getAll() {
         $query = "SELECT * FROM " . $this->table_name . " ORDER BY created_at DESC";
         $stmt = $this->conn->prepare($query);
@@ -15,6 +16,7 @@ class TicketModel {
         return $stmt->fetchAll();
     }
 
+    // Requête pour insérer un ticket
     public function create($data, $user_id) {
         $query = "INSERT INTO " . $this->table_name . "
             SET titre=:titre, description=:description, categorie=:categorie, priorite=:priorite, user_id=:user_id, statut='Nouveau'";
